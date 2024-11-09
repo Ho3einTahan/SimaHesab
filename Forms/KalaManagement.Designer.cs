@@ -129,7 +129,6 @@
             button1.Size = new Size(35, 35);
             button1.TabIndex = 19;
             button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
             // 
             // groupBox3
             // 

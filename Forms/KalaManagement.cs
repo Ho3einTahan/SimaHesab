@@ -82,11 +82,7 @@ namespace simaHesab
                 dataGridView1.Columns["saveDate"].Width = 60;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
+       
         private void btnExit_Click(object sender, EventArgs e)
         {
             DialogResult dialogResult = MessageBox.Show("آیا قصد خروج از این صفحه را دارید؟", "خروج", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
