@@ -1,0 +1,8 @@
+# Ignore Visual Studio temporary files, build results, and
+# folder configuration
+.vs/
+*.user
+*.suo
+*.vscode/
+bin/
+obj/
