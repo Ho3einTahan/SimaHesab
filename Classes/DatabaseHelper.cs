@@ -2,7 +2,7 @@
 using System.Data;
 using Microsoft.Data.SqlClient;
 
-namespace simaHesab
+namespace simaHesab.Classes
 {
     internal class DatabaseHelper
     {
@@ -10,7 +10,7 @@ namespace simaHesab
 
         public DatabaseHelper()
         {
-            this.connectionString = Constants.ConnectionString;
+            connectionString = Constants.ConnectionString;
         }
 
         // به‌روزرسانی قیمت کالا
@@ -93,7 +93,7 @@ namespace simaHesab
             }
         }
 
-        public async Task<DataTable> GetAllKalaAsync()
+        public async Task<DataTable> GetAllKalaAsync(string query)
         {
             var dataTable = new DataTable();
 
@@ -102,7 +102,6 @@ namespace simaHesab
                 using var connection = new SqlConnection(connectionString);
                 await connection.OpenAsync();
 
-                string query = "SELECT * FROM kala";
                 using var adapter = new SqlDataAdapter(query, connection);
 
                 await Task.Run(() => adapter.Fill(dataTable));
@@ -115,7 +114,8 @@ namespace simaHesab
             return dataTable;
         }
 
-        public async Task<DataTable> GetAllFactor() {
+        public async Task<DataTable> GetAllFactor()
+        {
 
             var dataTable = new DataTable();
 
@@ -156,7 +156,7 @@ namespace simaHesab
                               (SELECT SUM(factorPrice) FROM factor WHERE saveDate >= @startDate AND saveDate <= @endDate) AS totalPrice
                               FROM factor
                               WHERE saveDate >= @startDate AND saveDate <= @endDate";
-            
+
                 using var command = new SqlCommand(query, connection);
 
                 // اضافه کردن پارامترهای تاریخ
