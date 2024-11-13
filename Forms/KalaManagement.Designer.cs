@@ -31,35 +31,35 @@
             panel1 = new Panel();
             button2 = new Button();
             btnExit = new Button();
-            comboBox1 = new ComboBox();
+            comboboxSearch = new ComboBox();
             label1 = new Label();
-            button1 = new Button();
+            btnSearch = new Button();
             groupBox3 = new GroupBox();
-            radioButton5 = new RadioButton();
-            radioButton3 = new RadioButton();
-            radioButton4 = new RadioButton();
+            radioActiveStatus = new RadioButton();
+            radioDeActiveStatus = new RadioButton();
+            radioAllStatus = new RadioButton();
             groupBox1 = new GroupBox();
-            radioButton2 = new RadioButton();
-            radioButton1 = new RadioButton();
-            textBox1 = new TextBox();
-            dataGridView1 = new DataGridView();
+            radioAllMojoodi = new RadioButton();
+            radioOnlyMojood = new RadioButton();
+            txtSearch = new TextBox();
+            dataGridKala = new DataGridView();
             panel1.SuspendLayout();
             groupBox3.SuspendLayout();
             groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridKala).BeginInit();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.Controls.Add(button2);
             panel1.Controls.Add(btnExit);
-            panel1.Controls.Add(comboBox1);
+            panel1.Controls.Add(comboboxSearch);
             panel1.Controls.Add(label1);
-            panel1.Controls.Add(button1);
+            panel1.Controls.Add(btnSearch);
             panel1.Controls.Add(groupBox3);
             panel1.Controls.Add(groupBox1);
-            panel1.Controls.Add(textBox1);
-            panel1.Controls.Add(dataGridView1);
+            panel1.Controls.Add(txtSearch);
+            panel1.Controls.Add(dataGridKala);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
@@ -81,6 +81,7 @@
             button2.Size = new Size(110, 40);
             button2.TabIndex = 24;
             button2.UseVisualStyleBackColor = false;
+            button2.Click += button2_Click;
             // 
             // btnExit
             // 
@@ -97,16 +98,16 @@
             btnExit.UseVisualStyleBackColor = false;
             btnExit.Click += btnExit_Click;
             // 
-            // comboBox1
+            // comboboxSearch
             // 
-            comboBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            comboBox1.AutoCompleteSource = AutoCompleteSource.ListItems;
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "کد", "نام", "تاریخ" });
-            comboBox1.Location = new Point(544, 12);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(121, 23);
-            comboBox1.TabIndex = 22;
+            comboboxSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            comboboxSearch.AutoCompleteSource = AutoCompleteSource.ListItems;
+            comboboxSearch.FormattingEnabled = true;
+            comboboxSearch.Items.AddRange(new object[] { "کد", "نام" });
+            comboboxSearch.Location = new Point(544, 12);
+            comboboxSearch.Name = "comboboxSearch";
+            comboboxSearch.Size = new Size(121, 23);
+            comboboxSearch.TabIndex = 22;
             // 
             // label1
             // 
@@ -119,23 +120,24 @@
             label1.TabIndex = 21;
             label1.Text = "جست و جو براساس :";
             // 
-            // button1
+            // btnSearch
             // 
-            button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button1.BackgroundImage = Properties.Resources.search;
-            button1.BackgroundImageLayout = ImageLayout.Stretch;
-            button1.Location = new Point(17, 5);
-            button1.Name = "button1";
-            button1.Size = new Size(35, 35);
-            button1.TabIndex = 19;
-            button1.UseVisualStyleBackColor = true;
+            btnSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnSearch.BackgroundImage = Properties.Resources.search;
+            btnSearch.BackgroundImageLayout = ImageLayout.Stretch;
+            btnSearch.Location = new Point(17, 5);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new Size(35, 35);
+            btnSearch.TabIndex = 19;
+            btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.Click += btnSearch_Click;
             // 
             // groupBox3
             // 
             groupBox3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            groupBox3.Controls.Add(radioButton5);
-            groupBox3.Controls.Add(radioButton3);
-            groupBox3.Controls.Add(radioButton4);
+            groupBox3.Controls.Add(radioActiveStatus);
+            groupBox3.Controls.Add(radioDeActiveStatus);
+            groupBox3.Controls.Add(radioAllStatus);
             groupBox3.Font = new Font("Segoe UI", 7F);
             groupBox3.Location = new Point(69, 4);
             groupBox3.Name = "groupBox3";
@@ -144,47 +146,47 @@
             groupBox3.TabStop = false;
             groupBox3.Text = "فیلتر وضعیت";
             // 
-            // radioButton5
+            // radioActiveStatus
             // 
-            radioButton5.AutoSize = true;
-            radioButton5.Font = new Font("Segoe UI", 8F);
-            radioButton5.Location = new Point(132, 10);
-            radioButton5.Name = "radioButton5";
-            radioButton5.Size = new Size(47, 17);
-            radioButton5.TabIndex = 2;
-            radioButton5.TabStop = true;
-            radioButton5.Text = "فعال";
-            radioButton5.UseVisualStyleBackColor = true;
+            radioActiveStatus.AutoSize = true;
+            radioActiveStatus.Font = new Font("Segoe UI", 8F);
+            radioActiveStatus.Location = new Point(132, 10);
+            radioActiveStatus.Name = "radioActiveStatus";
+            radioActiveStatus.Size = new Size(47, 17);
+            radioActiveStatus.TabIndex = 2;
+            radioActiveStatus.TabStop = true;
+            radioActiveStatus.Text = "فعال";
+            radioActiveStatus.UseVisualStyleBackColor = true;
             // 
-            // radioButton3
+            // radioDeActiveStatus
             // 
-            radioButton3.AutoSize = true;
-            radioButton3.Font = new Font("Segoe UI", 8F);
-            radioButton3.Location = new Point(63, 10);
-            radioButton3.Name = "radioButton3";
-            radioButton3.Size = new Size(61, 17);
-            radioButton3.TabIndex = 1;
-            radioButton3.TabStop = true;
-            radioButton3.Text = "غیرفعال";
-            radioButton3.UseVisualStyleBackColor = true;
+            radioDeActiveStatus.AutoSize = true;
+            radioDeActiveStatus.Font = new Font("Segoe UI", 8F);
+            radioDeActiveStatus.Location = new Point(63, 10);
+            radioDeActiveStatus.Name = "radioDeActiveStatus";
+            radioDeActiveStatus.Size = new Size(61, 17);
+            radioDeActiveStatus.TabIndex = 1;
+            radioDeActiveStatus.TabStop = true;
+            radioDeActiveStatus.Text = "غیرفعال";
+            radioDeActiveStatus.UseVisualStyleBackColor = true;
             // 
-            // radioButton4
+            // radioAllStatus
             // 
-            radioButton4.AutoSize = true;
-            radioButton4.Font = new Font("Segoe UI", 8F);
-            radioButton4.Location = new Point(6, 10);
-            radioButton4.Name = "radioButton4";
-            radioButton4.Size = new Size(44, 17);
-            radioButton4.TabIndex = 0;
-            radioButton4.TabStop = true;
-            radioButton4.Text = "همه";
-            radioButton4.UseVisualStyleBackColor = true;
+            radioAllStatus.AutoSize = true;
+            radioAllStatus.Font = new Font("Segoe UI", 8F);
+            radioAllStatus.Location = new Point(6, 10);
+            radioAllStatus.Name = "radioAllStatus";
+            radioAllStatus.Size = new Size(44, 17);
+            radioAllStatus.TabIndex = 0;
+            radioAllStatus.TabStop = true;
+            radioAllStatus.Text = "همه";
+            radioAllStatus.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
             groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            groupBox1.Controls.Add(radioButton2);
-            groupBox1.Controls.Add(radioButton1);
+            groupBox1.Controls.Add(radioAllMojoodi);
+            groupBox1.Controls.Add(radioOnlyMojood);
             groupBox1.Font = new Font("Segoe UI", 7F);
             groupBox1.Location = new Point(334, 4);
             groupBox1.Name = "groupBox1";
@@ -193,49 +195,49 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "فیلتر موجودی";
             // 
-            // radioButton2
+            // radioAllMojoodi
             // 
-            radioButton2.AutoSize = true;
-            radioButton2.Font = new Font("Segoe UI", 8F);
-            radioButton2.Location = new Point(85, 10);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(44, 17);
-            radioButton2.TabIndex = 1;
-            radioButton2.TabStop = true;
-            radioButton2.Text = "همه";
-            radioButton2.UseVisualStyleBackColor = true;
+            radioAllMojoodi.AutoSize = true;
+            radioAllMojoodi.Font = new Font("Segoe UI", 8F);
+            radioAllMojoodi.Location = new Point(85, 10);
+            radioAllMojoodi.Name = "radioAllMojoodi";
+            radioAllMojoodi.Size = new Size(44, 17);
+            radioAllMojoodi.TabIndex = 1;
+            radioAllMojoodi.TabStop = true;
+            radioAllMojoodi.Text = "همه";
+            radioAllMojoodi.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // radioOnlyMojood
             // 
-            radioButton1.AutoSize = true;
-            radioButton1.Font = new Font("Segoe UI", 8F);
-            radioButton1.Location = new Point(6, 10);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(55, 17);
-            radioButton1.TabIndex = 0;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "موجود";
-            radioButton1.UseVisualStyleBackColor = true;
+            radioOnlyMojood.AutoSize = true;
+            radioOnlyMojood.Font = new Font("Segoe UI", 8F);
+            radioOnlyMojood.Location = new Point(6, 10);
+            radioOnlyMojood.Name = "radioOnlyMojood";
+            radioOnlyMojood.Size = new Size(55, 17);
+            radioOnlyMojood.TabIndex = 0;
+            radioOnlyMojood.TabStop = true;
+            radioOnlyMojood.Text = "موجود";
+            radioOnlyMojood.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // txtSearch
             // 
-            textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            textBox1.Location = new Point(778, 12);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(122, 23);
-            textBox1.TabIndex = 1;
+            txtSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            txtSearch.Location = new Point(778, 12);
+            txtSearch.Name = "txtSearch";
+            txtSearch.Size = new Size(122, 23);
+            txtSearch.TabIndex = 1;
             // 
-            // dataGridView1
+            // dataGridKala
             // 
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(0, 45);
-            dataGridView1.Margin = new Padding(0);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(912, 389);
-            dataGridView1.TabIndex = 0;
+            dataGridKala.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridKala.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridKala.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridKala.Dock = DockStyle.Fill;
+            dataGridKala.Location = new Point(0, 45);
+            dataGridKala.Margin = new Padding(0);
+            dataGridKala.Name = "dataGridKala";
+            dataGridKala.Size = new Size(912, 389);
+            dataGridKala.TabIndex = 0;
             // 
             // KalaManagement
             // 
@@ -245,7 +247,7 @@
             Controls.Add(panel1);
             Name = "KalaManagement";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "KalaManagement";
+            Text = "انتخاب کالا";
             Load += KalaManagement_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
@@ -253,25 +255,25 @@
             groupBox3.PerformLayout();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridKala).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
         private Panel panel1;
-        private DataGridView dataGridView1;
-        private TextBox textBox1;
+        private DataGridView dataGridKala;
+        private TextBox txtSearch;
         private GroupBox groupBox1;
-        private RadioButton radioButton2;
-        private RadioButton radioButton1;
+        private RadioButton radioAllMojoodi;
+        private RadioButton radioOnlyMojood;
         private GroupBox groupBox3;
-        private RadioButton radioButton5;
-        private RadioButton radioButton3;
-        private RadioButton radioButton4;
-        private Button button1;
+        private RadioButton radioActiveStatus;
+        private RadioButton radioDeActiveStatus;
+        private RadioButton radioAllStatus;
+        private Button btnSearch;
         private Label label1;
-        private ComboBox comboBox1;
+        private ComboBox comboboxSearch;
         private Button btnExit;
         private Button button2;
     }
