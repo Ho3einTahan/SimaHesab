@@ -29,61 +29,55 @@
         private void InitializeComponent()
         {
             panel2 = new Panel();
-            textBox7 = new TextBox();
-            label9 = new Label();
-            label4 = new Label();
-            label3 = new Label();
-            textBox6 = new TextBox();
-            label8 = new Label();
-            textBox2 = new TextBox();
-            label2 = new Label();
-            textBox4 = new TextBox();
-            label6 = new Label();
-            textBox5 = new TextBox();
-            label7 = new Label();
-            textBox1 = new TextBox();
+            lblFactorNumber = new Label();
+            txtFactorNumber = new TextBox();
             label1 = new Label();
-            textBox8 = new TextBox();
-            textBox3 = new TextBox();
-            label10 = new Label();
-            label5 = new Label();
             panel3 = new Panel();
+            lblDate = new Label();
+            txtDate = new TextBox();
+            btnPrint = new Button();
             button2 = new Button();
-            button1 = new Button();
-            dataGridView1 = new DataGridView();
+            btnExit = new Button();
+            dataGridFactor = new DataGridView();
             satr = new DataGridViewTextBoxColumn();
-            barcode = new DataGridViewTextBoxColumn();
+            codeKala = new DataGridViewTextBoxColumn();
             kalaName = new DataGridViewTextBoxColumn();
             tedad = new DataGridViewTextBoxColumn();
             price = new DataGridViewTextBoxColumn();
+            takhfif = new DataGridViewTextBoxColumn();
             totalPrice = new DataGridViewTextBoxColumn();
-            beforTakhfif = new DataGridViewTextBoxColumn();
+            textBox8 = new TextBox();
+            label10 = new Label();
+            groupBox1 = new GroupBox();
+            txtKalaName = new TextBox();
+            lblKalaName = new Label();
+            btnSubmit = new Button();
+            label4 = new Label();
+            txtTakhfif = new TextBox();
+            txtTotalPrice = new TextBox();
+            btnDelete = new Button();
+            lblTotalPrice = new Label();
+            textBox5 = new TextBox();
+            txtTedad = new TextBox();
+            label7 = new Label();
+            label8 = new Label();
+            txtCodeKala = new TextBox();
+            txtPrice = new TextBox();
+            lblPrice = new Label();
+            lblCodeKala = new Label();
+            button3 = new Button();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridFactor).BeginInit();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(224, 224, 224);
-            panel2.Controls.Add(textBox7);
-            panel2.Controls.Add(label9);
-            panel2.Controls.Add(label4);
-            panel2.Controls.Add(label3);
-            panel2.Controls.Add(textBox6);
-            panel2.Controls.Add(label8);
-            panel2.Controls.Add(textBox2);
-            panel2.Controls.Add(label2);
-            panel2.Controls.Add(textBox4);
-            panel2.Controls.Add(label6);
-            panel2.Controls.Add(textBox5);
-            panel2.Controls.Add(label7);
-            panel2.Controls.Add(textBox1);
+            panel2.Controls.Add(lblFactorNumber);
+            panel2.Controls.Add(txtFactorNumber);
             panel2.Controls.Add(label1);
-            panel2.Controls.Add(textBox8);
-            panel2.Controls.Add(textBox3);
-            panel2.Controls.Add(label10);
-            panel2.Controls.Add(label5);
             panel2.Controls.Add(panel3);
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(0, 0);
@@ -92,147 +86,26 @@
             panel2.Size = new Size(800, 450);
             panel2.TabIndex = 4;
             // 
-            // textBox7
+            // lblFactorNumber
             // 
-            textBox7.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            textBox7.BackColor = SystemColors.ActiveCaption;
-            textBox7.Location = new Point(278, 7);
-            textBox7.Name = "textBox7";
-            textBox7.Size = new Size(121, 23);
-            textBox7.TabIndex = 15;
+            lblFactorNumber.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            lblFactorNumber.AutoSize = true;
+            lblFactorNumber.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblFactorNumber.ForeColor = SystemColors.MenuHighlight;
+            lblFactorNumber.Location = new Point(698, 5);
+            lblFactorNumber.Name = "lblFactorNumber";
+            lblFactorNumber.RightToLeft = RightToLeft.Yes;
+            lblFactorNumber.Size = new Size(93, 19);
+            lblFactorNumber.TabIndex = 4;
+            lblFactorNumber.Text = "شماره فاکتور :";
             // 
-            // label9
+            // txtFactorNumber
             // 
-            label9.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label9.AutoSize = true;
-            label9.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            label9.ForeColor = SystemColors.MenuHighlight;
-            label9.Location = new Point(401, 8);
-            label9.Name = "label9";
-            label9.RightToLeft = RightToLeft.Yes;
-            label9.Size = new Size(80, 19);
-            label9.TabIndex = 14;
-            label9.Text = "قیمت واحد :";
-            // 
-            // label4
-            // 
-            label4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            label4.ForeColor = SystemColors.MenuHighlight;
-            label4.Location = new Point(181, 34);
-            label4.Name = "label4";
-            label4.RightToLeft = RightToLeft.Yes;
-            label4.Size = new Size(56, 19);
-            label4.TabIndex = 5;
-            label4.Text = "تخفیف :";
-            // 
-            // label3
-            // 
-            label3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            label3.ForeColor = SystemColors.MenuHighlight;
-            label3.Location = new Point(698, 5);
-            label3.Name = "label3";
-            label3.RightToLeft = RightToLeft.Yes;
-            label3.Size = new Size(93, 19);
-            label3.TabIndex = 4;
-            label3.Text = "شماره فاکتور :";
-            // 
-            // textBox6
-            // 
-            textBox6.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            textBox6.BackColor = Color.LightSeaGreen;
-            textBox6.Location = new Point(635, 66);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(60, 23);
-            textBox6.TabIndex = 13;
-            // 
-            // label8
-            // 
-            label8.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label8.AutoSize = true;
-            label8.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            label8.ForeColor = SystemColors.MenuHighlight;
-            label8.Location = new Point(699, 67);
-            label8.Name = "label8";
-            label8.RightToLeft = RightToLeft.Yes;
-            label8.Size = new Size(48, 19);
-            label8.TabIndex = 12;
-            label8.Text = "تعداد :";
-            // 
-            // textBox2
-            // 
-            textBox2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            textBox2.Location = new Point(57, 4);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(121, 23);
-            textBox2.TabIndex = 3;
-            // 
-            // label2
-            // 
-            label2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            label2.ForeColor = SystemColors.MenuHighlight;
-            label2.Location = new Point(181, 5);
-            label2.Name = "label2";
-            label2.RightToLeft = RightToLeft.Yes;
-            label2.Size = new Size(46, 19);
-            label2.TabIndex = 2;
-            label2.Text = "تاریخ :";
-            // 
-            // textBox4
-            // 
-            textBox4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            textBox4.Location = new Point(574, 37);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(121, 23);
-            textBox4.TabIndex = 9;
-            // 
-            // label6
-            // 
-            label6.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            label6.ForeColor = SystemColors.MenuHighlight;
-            label6.Location = new Point(698, 37);
-            label6.Name = "label6";
-            label6.RightToLeft = RightToLeft.Yes;
-            label6.Size = new Size(51, 19);
-            label6.TabIndex = 8;
-            label6.Text = "کدکالا :";
-            // 
-            // textBox5
-            // 
-            textBox5.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            textBox5.BackColor = Color.White;
-            textBox5.Location = new Point(57, 62);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(121, 23);
-            textBox5.TabIndex = 11;
-            // 
-            // label7
-            // 
-            label7.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            label7.ForeColor = SystemColors.MenuHighlight;
-            label7.Location = new Point(180, 63);
-            label7.Name = "label7";
-            label7.RightToLeft = RightToLeft.Yes;
-            label7.Size = new Size(43, 19);
-            label7.TabIndex = 10;
-            label7.Text = "شرح :";
-            // 
-            // textBox1
-            // 
-            textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            textBox1.Location = new Point(574, 4);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(121, 23);
-            textBox1.TabIndex = 1;
+            txtFactorNumber.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            txtFactorNumber.Location = new Point(574, 4);
+            txtFactorNumber.Name = "txtFactorNumber";
+            txtFactorNumber.Size = new Size(121, 23);
+            txtFactorNumber.TabIndex = 1;
             // 
             // label1
             // 
@@ -243,111 +116,111 @@
             label1.Size = new Size(0, 15);
             label1.TabIndex = 0;
             // 
-            // textBox8
-            // 
-            textBox8.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            textBox8.BackColor = SystemColors.ActiveCaption;
-            textBox8.Location = new Point(278, 37);
-            textBox8.Name = "textBox8";
-            textBox8.Size = new Size(121, 23);
-            textBox8.TabIndex = 17;
-            // 
-            // textBox3
-            // 
-            textBox3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            textBox3.Location = new Point(80, 33);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(98, 23);
-            textBox3.TabIndex = 6;
-            // 
-            // label10
-            // 
-            label10.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label10.AutoSize = true;
-            label10.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            label10.ForeColor = SystemColors.MenuHighlight;
-            label10.Location = new Point(401, 38);
-            label10.Name = "label10";
-            label10.RightToLeft = RightToLeft.Yes;
-            label10.Size = new Size(63, 19);
-            label10.TabIndex = 16;
-            label10.Text = "مبلغ کل :";
-            // 
-            // label5
-            // 
-            label5.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            label5.ForeColor = Color.Red;
-            label5.Location = new Point(60, 37);
-            label5.Name = "label5";
-            label5.RightToLeft = RightToLeft.Yes;
-            label5.Size = new Size(17, 15);
-            label5.TabIndex = 7;
-            label5.Text = "%";
-            // 
             // panel3
             // 
+            panel3.Controls.Add(lblDate);
+            panel3.Controls.Add(txtDate);
+            panel3.Controls.Add(btnPrint);
             panel3.Controls.Add(button2);
-            panel3.Controls.Add(button1);
-            panel3.Controls.Add(dataGridView1);
+            panel3.Controls.Add(btnExit);
+            panel3.Controls.Add(dataGridFactor);
+            panel3.Controls.Add(textBox8);
+            panel3.Controls.Add(label10);
+            panel3.Controls.Add(groupBox1);
             panel3.Dock = DockStyle.Fill;
             panel3.Location = new Point(0, 0);
             panel3.Name = "panel3";
-            panel3.Padding = new Padding(0, 95, 0, 45);
+            panel3.Padding = new Padding(0, 130, 0, 45);
             panel3.Size = new Size(800, 450);
             panel3.TabIndex = 18;
+            // 
+            // lblDate
+            // 
+            lblDate.AutoSize = true;
+            lblDate.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblDate.ForeColor = SystemColors.MenuHighlight;
+            lblDate.Location = new Point(95, 8);
+            lblDate.Name = "lblDate";
+            lblDate.RightToLeft = RightToLeft.Yes;
+            lblDate.Size = new Size(46, 19);
+            lblDate.TabIndex = 2;
+            lblDate.Text = "تاریخ :";
+            // 
+            // txtDate
+            // 
+            txtDate.Location = new Point(6, 7);
+            txtDate.Name = "txtDate";
+            txtDate.RightToLeft = RightToLeft.No;
+            txtDate.Size = new Size(85, 23);
+            txtDate.TabIndex = 3;
+            txtDate.TextAlign = HorizontalAlignment.Center;
+            // 
+            // btnPrint
+            // 
+            btnPrint.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnPrint.BackColor = Color.WhiteSmoke;
+            btnPrint.BackgroundImage = Properties.Resources.print;
+            btnPrint.BackgroundImageLayout = ImageLayout.Zoom;
+            btnPrint.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            btnPrint.ForeColor = Color.White;
+            btnPrint.Location = new Point(688, 408);
+            btnPrint.Name = "btnPrint";
+            btnPrint.Size = new Size(110, 40);
+            btnPrint.TabIndex = 27;
+            btnPrint.UseVisualStyleBackColor = false;
             // 
             // button2
             // 
             button2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            button2.BackColor = Color.Red;
+            button2.BackColor = Color.WhiteSmoke;
+            button2.BackgroundImage = Properties.Resources.submit;
+            button2.BackgroundImageLayout = ImageLayout.Zoom;
             button2.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             button2.ForeColor = Color.White;
-            button2.Location = new Point(113, 406);
+            button2.Location = new Point(119, 407);
             button2.Name = "button2";
-            button2.Size = new Size(104, 43);
-            button2.TabIndex = 2;
-            button2.Text = "خروج";
+            button2.Size = new Size(110, 40);
+            button2.TabIndex = 26;
             button2.UseVisualStyleBackColor = false;
             // 
-            // button1
+            // btnExit
             // 
-            button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            button1.BackColor = Color.DarkGreen;
-            button1.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            button1.ForeColor = Color.White;
-            button1.Location = new Point(3, 406);
-            button1.Name = "button1";
-            button1.Size = new Size(104, 43);
-            button1.TabIndex = 1;
-            button1.Text = "ثبت";
-            button1.UseVisualStyleBackColor = false;
+            btnExit.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnExit.BackColor = Color.WhiteSmoke;
+            btnExit.BackgroundImage = Properties.Resources.logout;
+            btnExit.BackgroundImageLayout = ImageLayout.Zoom;
+            btnExit.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            btnExit.ForeColor = Color.White;
+            btnExit.Location = new Point(3, 407);
+            btnExit.Name = "btnExit";
+            btnExit.Size = new Size(110, 40);
+            btnExit.TabIndex = 25;
+            btnExit.UseVisualStyleBackColor = false;
             // 
-            // dataGridView1
+            // dataGridFactor
             // 
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { satr, barcode, kalaName, tedad, price, totalPrice, beforTakhfif });
-            dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.GridColor = SystemColors.MenuHighlight;
-            dataGridView1.Location = new Point(0, 95);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RightToLeft = RightToLeft.Yes;
-            dataGridView1.Size = new Size(800, 310);
-            dataGridView1.TabIndex = 0;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            dataGridFactor.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridFactor.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridFactor.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridFactor.Columns.AddRange(new DataGridViewColumn[] { satr, codeKala, kalaName, tedad, price, takhfif, totalPrice });
+            dataGridFactor.Dock = DockStyle.Fill;
+            dataGridFactor.GridColor = SystemColors.MenuHighlight;
+            dataGridFactor.Location = new Point(0, 130);
+            dataGridFactor.Name = "dataGridFactor";
+            dataGridFactor.RightToLeft = RightToLeft.Yes;
+            dataGridFactor.Size = new Size(800, 275);
+            dataGridFactor.TabIndex = 0;
+            dataGridFactor.MouseDown += dataGridFactor_MouseDown;
             // 
             // satr
             // 
             satr.HeaderText = "ردیف";
             satr.Name = "satr";
             // 
-            // barcode
+            // codeKala
             // 
-            barcode.HeaderText = "بارکد کالا";
-            barcode.Name = "barcode";
+            codeKala.HeaderText = "کدکالا";
+            codeKala.Name = "codeKala";
             // 
             // kalaName
             // 
@@ -364,15 +237,253 @@
             price.HeaderText = "قیمت واحد";
             price.Name = "price";
             // 
+            // takhfif
+            // 
+            takhfif.HeaderText = "تخفیف";
+            takhfif.Name = "takhfif";
+            // 
             // totalPrice
             // 
             totalPrice.HeaderText = "قیمت کل";
             totalPrice.Name = "totalPrice";
             // 
-            // beforTakhfif
+            // textBox8
             // 
-            beforTakhfif.HeaderText = "قبل از تخفیف";
-            beforTakhfif.Name = "beforTakhfif";
+            textBox8.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            textBox8.BackColor = SystemColors.ActiveCaption;
+            textBox8.Location = new Point(380, 300);
+            textBox8.Name = "textBox8";
+            textBox8.Size = new Size(121, 23);
+            textBox8.TabIndex = 17;
+            // 
+            // label10
+            // 
+            label10.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            label10.ForeColor = SystemColors.MenuHighlight;
+            label10.Location = new Point(503, 301);
+            label10.Name = "label10";
+            label10.RightToLeft = RightToLeft.Yes;
+            label10.Size = new Size(63, 19);
+            label10.TabIndex = 16;
+            label10.Text = "مبلغ کل :";
+            // 
+            // groupBox1
+            // 
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            groupBox1.Controls.Add(txtKalaName);
+            groupBox1.Controls.Add(lblKalaName);
+            groupBox1.Controls.Add(btnSubmit);
+            groupBox1.Controls.Add(label4);
+            groupBox1.Controls.Add(txtTakhfif);
+            groupBox1.Controls.Add(txtTotalPrice);
+            groupBox1.Controls.Add(btnDelete);
+            groupBox1.Controls.Add(lblTotalPrice);
+            groupBox1.Controls.Add(textBox5);
+            groupBox1.Controls.Add(txtTedad);
+            groupBox1.Controls.Add(label7);
+            groupBox1.Controls.Add(label8);
+            groupBox1.Controls.Add(txtCodeKala);
+            groupBox1.Controls.Add(txtPrice);
+            groupBox1.Controls.Add(lblPrice);
+            groupBox1.Controls.Add(lblCodeKala);
+            groupBox1.Controls.Add(button3);
+            groupBox1.Location = new Point(3, 34);
+            groupBox1.Name = "groupBox1";
+            groupBox1.RightToLeft = RightToLeft.Yes;
+            groupBox1.Size = new Size(794, 90);
+            groupBox1.TabIndex = 28;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "افزودن کالا";
+            // 
+            // txtKalaName
+            // 
+            txtKalaName.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            txtKalaName.BackColor = SystemColors.ActiveCaption;
+            txtKalaName.Location = new Point(355, 21);
+            txtKalaName.Name = "txtKalaName";
+            txtKalaName.Size = new Size(117, 23);
+            txtKalaName.TabIndex = 32;
+            // 
+            // lblKalaName
+            // 
+            lblKalaName.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            lblKalaName.AutoSize = true;
+            lblKalaName.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblKalaName.ForeColor = SystemColors.MenuHighlight;
+            lblKalaName.Location = new Point(475, 23);
+            lblKalaName.Name = "lblKalaName";
+            lblKalaName.RightToLeft = RightToLeft.Yes;
+            lblKalaName.Size = new Size(58, 19);
+            lblKalaName.TabIndex = 31;
+            lblKalaName.Text = "نام کالا :";
+            // 
+            // btnSubmit
+            // 
+            btnSubmit.BackColor = Color.White;
+            btnSubmit.Font = new Font("Trebuchet MS", 12.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSubmit.ForeColor = Color.Green;
+            btnSubmit.Location = new Point(109, 55);
+            btnSubmit.Name = "btnSubmit";
+            btnSubmit.Size = new Size(100, 35);
+            btnSubmit.TabIndex = 30;
+            btnSubmit.Text = "تایید";
+            btnSubmit.UseVisualStyleBackColor = false;
+            btnSubmit.Click += btnSubmit_Click;
+            // 
+            // label4
+            // 
+            label4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            label4.ForeColor = Color.Red;
+            label4.Location = new Point(246, 23);
+            label4.Name = "label4";
+            label4.RightToLeft = RightToLeft.Yes;
+            label4.Size = new Size(21, 19);
+            label4.TabIndex = 19;
+            label4.Text = "%";
+            // 
+            // txtTakhfif
+            // 
+            txtTakhfif.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            txtTakhfif.BackColor = SystemColors.ActiveCaption;
+            txtTakhfif.Location = new Point(270, 21);
+            txtTakhfif.Name = "txtTakhfif";
+            txtTakhfif.Size = new Size(58, 23);
+            txtTakhfif.TabIndex = 18;
+            // 
+            // txtTotalPrice
+            // 
+            txtTotalPrice.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            txtTotalPrice.BackColor = SystemColors.ActiveCaption;
+            txtTotalPrice.Location = new Point(223, 63);
+            txtTotalPrice.Name = "txtTotalPrice";
+            txtTotalPrice.Size = new Size(105, 23);
+            txtTotalPrice.TabIndex = 17;
+            // 
+            // btnDelete
+            // 
+            btnDelete.BackColor = Color.White;
+            btnDelete.Font = new Font("Trebuchet MS", 12.75F, FontStyle.Bold);
+            btnDelete.ForeColor = Color.Red;
+            btnDelete.Location = new Point(3, 55);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(100, 35);
+            btnDelete.TabIndex = 29;
+            btnDelete.Text = "حذف";
+            btnDelete.UseVisualStyleBackColor = false;
+            // 
+            // lblTotalPrice
+            // 
+            lblTotalPrice.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            lblTotalPrice.AutoSize = true;
+            lblTotalPrice.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblTotalPrice.ForeColor = Color.Navy;
+            lblTotalPrice.Location = new Point(330, 64);
+            lblTotalPrice.Name = "lblTotalPrice";
+            lblTotalPrice.RightToLeft = RightToLeft.Yes;
+            lblTotalPrice.Size = new Size(63, 19);
+            lblTotalPrice.TabIndex = 16;
+            lblTotalPrice.Text = "مبلغ کل :";
+            // 
+            // textBox5
+            // 
+            textBox5.BackColor = Color.White;
+            textBox5.Location = new Point(3, 19);
+            textBox5.Name = "textBox5";
+            textBox5.Size = new Size(182, 23);
+            textBox5.TabIndex = 11;
+            // 
+            // txtTedad
+            // 
+            txtTedad.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            txtTedad.BackColor = Color.LightSeaGreen;
+            txtTedad.Location = new Point(615, 63);
+            txtTedad.Name = "txtTedad";
+            txtTedad.Size = new Size(105, 23);
+            txtTedad.TabIndex = 13;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            label7.ForeColor = SystemColors.MenuHighlight;
+            label7.Location = new Point(189, 21);
+            label7.Name = "label7";
+            label7.RightToLeft = RightToLeft.Yes;
+            label7.Size = new Size(43, 19);
+            label7.TabIndex = 10;
+            label7.Text = "شرح :";
+            // 
+            // label8
+            // 
+            label8.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            label8.ForeColor = Color.Red;
+            label8.Location = new Point(726, 65);
+            label8.Name = "label8";
+            label8.RightToLeft = RightToLeft.Yes;
+            label8.Size = new Size(48, 19);
+            label8.TabIndex = 12;
+            label8.Text = "تعداد :";
+            // 
+            // txtCodeKala
+            // 
+            txtCodeKala.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            txtCodeKala.Location = new Point(546, 22);
+            txtCodeKala.Name = "txtCodeKala";
+            txtCodeKala.Size = new Size(86, 23);
+            txtCodeKala.TabIndex = 3;
+            // 
+            // txtPrice
+            // 
+            txtPrice.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            txtPrice.BackColor = SystemColors.ActiveCaption;
+            txtPrice.Location = new Point(402, 63);
+            txtPrice.Name = "txtPrice";
+            txtPrice.Size = new Size(117, 23);
+            txtPrice.TabIndex = 15;
+            // 
+            // lblPrice
+            // 
+            lblPrice.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            lblPrice.AutoSize = true;
+            lblPrice.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblPrice.ForeColor = SystemColors.MenuHighlight;
+            lblPrice.Location = new Point(522, 65);
+            lblPrice.Name = "lblPrice";
+            lblPrice.RightToLeft = RightToLeft.Yes;
+            lblPrice.Size = new Size(80, 19);
+            lblPrice.TabIndex = 14;
+            lblPrice.Text = "قیمت واحد :";
+            // 
+            // lblCodeKala
+            // 
+            lblCodeKala.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            lblCodeKala.AutoSize = true;
+            lblCodeKala.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblCodeKala.ForeColor = SystemColors.MenuHighlight;
+            lblCodeKala.Location = new Point(669, 23);
+            lblCodeKala.Name = "lblCodeKala";
+            lblCodeKala.RightToLeft = RightToLeft.Yes;
+            lblCodeKala.Size = new Size(51, 19);
+            lblCodeKala.TabIndex = 8;
+            lblCodeKala.Text = "کدکالا :";
+            // 
+            // button3
+            // 
+            button3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            button3.Font = new Font("Segoe UI", 7F, FontStyle.Bold);
+            button3.Location = new Point(634, 22);
+            button3.Name = "button3";
+            button3.Size = new Size(29, 23);
+            button3.TabIndex = 4;
+            button3.Text = "...";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
             // 
             // SodoorFactor
             // 
@@ -382,44 +493,56 @@
             Controls.Add(panel2);
             Name = "SodoorFactor";
             Text = "فروش کالا/صدور فاکتور";
+            Load += SodoorFactor_Load;
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridFactor).EndInit();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
 
         private Panel panel2;
-        private TextBox textBox7;
-        private Label label9;
-        private Label label4;
-        private Label label3;
-        private TextBox textBox6;
+        private TextBox txtPrice;
+        private Label lblPrice;
+        private Label lblFactorNumber;
+        private TextBox txtTedad;
         private Label label8;
-        private TextBox textBox2;
-        private Label label2;
-        private TextBox textBox4;
-        private Label label6;
+        private TextBox txtDate;
+        private Label lblDate;
+        private Label lblCodeKala;
         private TextBox textBox5;
         private Label label7;
-        private TextBox textBox1;
+        private TextBox txtFactorNumber;
         private Label label1;
         private TextBox textBox8;
-        private TextBox textBox3;
         private Label label10;
-        private Label label5;
         private Panel panel3;
-        private DataGridView dataGridView1;
-        private Button button1;
+        private DataGridView dataGridFactor;
+        private Button button3;
+        private TextBox txtCodeKala;
+        private Button btnPrint;
         private Button button2;
+        private Button btnExit;
+        private GroupBox groupBox1;
+        private TextBox txtTotalPrice;
+        private Label lblTotalPrice;
+        private Button btnDelete;
+        private Button btnSubmit;
+        private Label label4;
+        private TextBox txtTakhfif;
         private DataGridViewTextBoxColumn satr;
-        private DataGridViewTextBoxColumn barcode;
+        private DataGridViewTextBoxColumn codeKala;
         private DataGridViewTextBoxColumn kalaName;
         private DataGridViewTextBoxColumn tedad;
         private DataGridViewTextBoxColumn price;
+        private DataGridViewTextBoxColumn takhfif;
         private DataGridViewTextBoxColumn totalPrice;
-        private DataGridViewTextBoxColumn beforTakhfif;
+        private TextBox txtKalaName;
+        private Label lblKalaName;
     }
 }
