@@ -1,30 +1,85 @@
-﻿using System;
-using System.Data;
-using System.Threading.Tasks;
+﻿using System.Data;
 using System.Windows.Forms;
 using Microsoft.Data.SqlClient;
+using simaHesab.Classes;
 
 namespace simaHesab
 {
     public partial class KalaManagement : Form
     {
-        private readonly string connectionString = "Server=.\\pooyesh;Database=SimaHesab;User Id=sa;Password=PSC@560;TrustServerCertificate=True;";
-
+       public Dictionary<string, string> data = new Dictionary<string, string>();
+        private DatabaseHelper databaseHelper;
         public KalaManagement()
         {
             InitializeComponent();
+            databaseHelper = new DatabaseHelper();
         }
 
-        private async void KalaManagement_Load(object sender, EventArgs e)
+        private void KalaManagement_Load(object sender, EventArgs e)
         {
-            var loadingForm = new LoadingForm();
-            loadingForm.Show();
+            GetAllKalaFromDatabase();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            GetAllKalaFromDatabase();
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("آیا قصد خروج از این صفحه را دارید؟", "خروج", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dialogResult == DialogResult.Yes)
+                this.Close();
+        }
+
+        private async void GetAllKalaFromDatabase()
+        {
+
             this.Enabled = false;
 
             try
             {
-                var dataTable = await LoadDataFromDatabaseAsync();
-                dataGridView1.DataSource = dataTable;
+                string query = "SELECT * FROM kala WHERE 1=1";  // شرط 1=1 به این معنی است که هیچ‌چیز فیلتر نشود.
+                if (comboboxSearch.SelectedItem != null && txtSearch.Text != "")
+                {
+                    if (comboboxSearch.SelectedItem.ToString() == "نام")
+                    {
+                        query += " AND Name LIKE '%" + txtSearch.Text + "%' ";
+                    }
+                    else if (comboboxSearch.SelectedItem.ToString() == "کد")
+                    {
+                        int code;
+                        if (int.TryParse(txtSearch.Text, out code))
+                        {
+                            query += " AND Code = " + code;  // استفاده از عدد برای جستجو
+                        }
+                        else
+                        {
+                            MessageBox.Show("کد وارد شده صحیح نیست", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                    }
+                }
+
+                if (radioActiveStatus.Checked)
+                {
+                    query += " AND isActive = 1";  // فرض کنید که وضعیت کالا 'Active' است.
+                }
+                else if (radioDeActiveStatus.Checked)
+                {
+                    query += " AND isActive = 0";  // فرض کنید که وضعیت کالا 'DeActive' است.
+                }
+
+                if (radioOnlyMojood.Checked)
+                {
+                    query += " AND Tedad > 0";  // فرض می‌کنیم که Tedad موجودی کالا باشد.
+                }
+                else if (radioAllMojoodi.Checked)
+                {
+                }
+
+                var dataTable = await databaseHelper.GetAllKalaAsync(query);
+                dataGridKala.DataSource = dataTable;
                 CustomizeDataGridView();
             }
             catch (Exception ex)
@@ -33,61 +88,45 @@ namespace simaHesab
             }
             finally
             {
-                loadingForm.Close();
                 this.Enabled = true;
             }
+
         }
-
-        private async Task<DataTable> LoadDataFromDatabaseAsync()
-        {
-            return await Task.Run(() =>
-            {
-                using var connection = new SqlConnection(connectionString);
-                connection.Open();
-                string query = "SELECT * FROM kala";
-                using var adapter = new SqlDataAdapter(query, connection);
-                var dataTable = new DataTable();
-                adapter.Fill(dataTable);
-                return dataTable;
-            });
-        }
-
-
-
 
         private void CustomizeDataGridView()
         {
-            if (dataGridView1.Columns.Contains("kalaId"))
+            if (dataGridKala.Columns.Contains("Code"))
             {
-                dataGridView1.Columns["kalaId"].DefaultCellStyle.BackColor = Color.LightSkyBlue;
-                dataGridView1.Columns["kalaId"].HeaderText = "شناسه کالا";
+                dataGridKala.Columns["Code"].DefaultCellStyle.BackColor = Color.LightSkyBlue;
+                dataGridKala.Columns["Code"].HeaderText = "کد کالا";
             }
 
-            if (dataGridView1.Columns.Contains("kalaName"))
-                dataGridView1.Columns["kalaName"].HeaderText = "نام کالا";
+            if (dataGridKala.Columns.Contains("Name"))
+                dataGridKala.Columns["Name"].HeaderText = "نام کالا";
 
-            if (dataGridView1.Columns.Contains("barcode"))
-                dataGridView1.Columns["barcode"].HeaderText = "بارکد";
 
-            if (dataGridView1.Columns.Contains("price"))
-                dataGridView1.Columns["price"].HeaderText = "قیمت";
+            if (dataGridKala.Columns.Contains("price"))
+                dataGridKala.Columns["price"].HeaderText = "قیمت";
 
-            if (dataGridView1.Columns.Contains("tedad"))
-                dataGridView1.Columns["tedad"].HeaderText = "تعداد";
+            if (dataGridKala.Columns.Contains("Tedad"))
+                dataGridKala.Columns["Tedad"].HeaderText = "موجودی";
 
-            if (dataGridView1.Columns.Contains("takhfif"))
-                dataGridView1.Columns["takhfif"].HeaderText = "تخفیف";
+            if (dataGridKala.Columns.Contains("takhfif"))
+                dataGridKala.Columns["takhfif"].HeaderText = "تخفیف";
 
-            if (dataGridView1.Columns.Contains("saveDate"))
-                dataGridView1.Columns["saveDate"].Width = 60;
         }
 
-       
-        private void btnExit_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("آیا قصد خروج از این صفحه را دارید؟", "خروج", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (dialogResult == DialogResult.Yes)
-                this.Close();
+            int rowIndex = dataGridKala.CurrentCell.RowIndex;
+            DataGridViewRow selectedRow = dataGridKala.Rows[rowIndex];
+            data.Add("kalaCode", selectedRow.Cells[0].Value.ToString());
+            data.Add("kalaName", selectedRow.Cells[1].Value.ToString());
+            data.Add("tedad", selectedRow.Cells[2].Value.ToString());
+            data.Add("price", selectedRow.Cells[3].Value.ToString());
+            data.Add("isActive", selectedRow.Cells[4].Value.ToString());
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
     }
 }
