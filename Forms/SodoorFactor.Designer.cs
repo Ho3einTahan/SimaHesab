@@ -36,7 +36,7 @@
             lblDate = new Label();
             txtDate = new TextBox();
             btnPrint = new Button();
-            button2 = new Button();
+            btnSave = new Button();
             btnExit = new Button();
             dataGridFactor = new DataGridView();
             satr = new DataGridViewTextBoxColumn();
@@ -57,9 +57,9 @@
             txtTotalPrice = new TextBox();
             btnDelete = new Button();
             lblTotalPrice = new Label();
-            textBox5 = new TextBox();
+            txtSharh = new TextBox();
             txtTedad = new TextBox();
-            label7 = new Label();
+            lblSharh = new Label();
             label8 = new Label();
             txtCodeKala = new TextBox();
             txtPrice = new TextBox();
@@ -104,6 +104,7 @@
             txtFactorNumber.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             txtFactorNumber.Location = new Point(574, 4);
             txtFactorNumber.Name = "txtFactorNumber";
+            txtFactorNumber.ReadOnly = true;
             txtFactorNumber.Size = new Size(121, 23);
             txtFactorNumber.TabIndex = 1;
             // 
@@ -121,7 +122,7 @@
             panel3.Controls.Add(lblDate);
             panel3.Controls.Add(txtDate);
             panel3.Controls.Add(btnPrint);
-            panel3.Controls.Add(button2);
+            panel3.Controls.Add(btnSave);
             panel3.Controls.Add(btnExit);
             panel3.Controls.Add(dataGridFactor);
             panel3.Controls.Add(textBox8);
@@ -169,19 +170,20 @@
             btnPrint.TabIndex = 27;
             btnPrint.UseVisualStyleBackColor = false;
             // 
-            // button2
+            // btnSave
             // 
-            button2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            button2.BackColor = Color.WhiteSmoke;
-            button2.BackgroundImage = Properties.Resources.submit;
-            button2.BackgroundImageLayout = ImageLayout.Zoom;
-            button2.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            button2.ForeColor = Color.White;
-            button2.Location = new Point(119, 407);
-            button2.Name = "button2";
-            button2.Size = new Size(110, 40);
-            button2.TabIndex = 26;
-            button2.UseVisualStyleBackColor = false;
+            btnSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnSave.BackColor = Color.WhiteSmoke;
+            btnSave.BackgroundImage = Properties.Resources.submit;
+            btnSave.BackgroundImageLayout = ImageLayout.Zoom;
+            btnSave.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            btnSave.ForeColor = Color.White;
+            btnSave.Location = new Point(119, 407);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(110, 40);
+            btnSave.TabIndex = 26;
+            btnSave.UseVisualStyleBackColor = false;
+            btnSave.Click += btnSave_Click;
             // 
             // btnExit
             // 
@@ -210,7 +212,7 @@
             dataGridFactor.RightToLeft = RightToLeft.Yes;
             dataGridFactor.Size = new Size(800, 275);
             dataGridFactor.TabIndex = 0;
-            dataGridFactor.MouseDown += dataGridFactor_MouseDown;
+            dataGridFactor.MouseDoubleClick += dataGridFactor_MouseDoubleClick;
             // 
             // satr
             // 
@@ -280,9 +282,9 @@
             groupBox1.Controls.Add(txtTotalPrice);
             groupBox1.Controls.Add(btnDelete);
             groupBox1.Controls.Add(lblTotalPrice);
-            groupBox1.Controls.Add(textBox5);
+            groupBox1.Controls.Add(txtSharh);
             groupBox1.Controls.Add(txtTedad);
-            groupBox1.Controls.Add(label7);
+            groupBox1.Controls.Add(lblSharh);
             groupBox1.Controls.Add(label8);
             groupBox1.Controls.Add(txtCodeKala);
             groupBox1.Controls.Add(txtPrice);
@@ -301,9 +303,10 @@
             // 
             txtKalaName.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             txtKalaName.BackColor = SystemColors.ActiveCaption;
-            txtKalaName.Location = new Point(355, 21);
+            txtKalaName.Font = new Font("B Nazanin", 10F, FontStyle.Bold);
+            txtKalaName.Location = new Point(408, 19);
             txtKalaName.Name = "txtKalaName";
-            txtKalaName.Size = new Size(117, 23);
+            txtKalaName.Size = new Size(117, 29);
             txtKalaName.TabIndex = 32;
             // 
             // lblKalaName
@@ -312,7 +315,7 @@
             lblKalaName.AutoSize = true;
             lblKalaName.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblKalaName.ForeColor = SystemColors.MenuHighlight;
-            lblKalaName.Location = new Point(475, 23);
+            lblKalaName.Location = new Point(531, 25);
             lblKalaName.Name = "lblKalaName";
             lblKalaName.RightToLeft = RightToLeft.Yes;
             lblKalaName.Size = new Size(58, 19);
@@ -336,31 +339,33 @@
             // 
             label4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            label4.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             label4.ForeColor = Color.Red;
-            label4.Location = new Point(246, 23);
+            label4.Location = new Point(280, 25);
             label4.Name = "label4";
             label4.RightToLeft = RightToLeft.Yes;
-            label4.Size = new Size(21, 19);
+            label4.Size = new Size(48, 15);
             label4.TabIndex = 19;
-            label4.Text = "%";
+            label4.Text = "% درصد";
             // 
             // txtTakhfif
             // 
             txtTakhfif.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             txtTakhfif.BackColor = SystemColors.ActiveCaption;
-            txtTakhfif.Location = new Point(270, 21);
+            txtTakhfif.Font = new Font("B Nazanin", 12F, FontStyle.Bold);
+            txtTakhfif.Location = new Point(332, 16);
             txtTakhfif.Name = "txtTakhfif";
-            txtTakhfif.Size = new Size(58, 23);
+            txtTakhfif.Size = new Size(58, 33);
             txtTakhfif.TabIndex = 18;
             // 
             // txtTotalPrice
             // 
             txtTotalPrice.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             txtTotalPrice.BackColor = SystemColors.ActiveCaption;
-            txtTotalPrice.Location = new Point(223, 63);
+            txtTotalPrice.Font = new Font("B Nazanin", 12F, FontStyle.Bold);
+            txtTotalPrice.Location = new Point(223, 56);
             txtTotalPrice.Name = "txtTotalPrice";
-            txtTotalPrice.Size = new Size(105, 23);
+            txtTotalPrice.Size = new Size(105, 33);
             txtTotalPrice.TabIndex = 17;
             // 
             // btnDelete
@@ -388,34 +393,37 @@
             lblTotalPrice.TabIndex = 16;
             lblTotalPrice.Text = "مبلغ کل :";
             // 
-            // textBox5
+            // txtSharh
             // 
-            textBox5.BackColor = Color.White;
-            textBox5.Location = new Point(3, 19);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(182, 23);
-            textBox5.TabIndex = 11;
+            txtSharh.BackColor = Color.White;
+            txtSharh.Font = new Font("Segoe UI", 11F);
+            txtSharh.Location = new Point(3, 19);
+            txtSharh.Name = "txtSharh";
+            txtSharh.Size = new Size(216, 27);
+            txtSharh.TabIndex = 11;
             // 
             // txtTedad
             // 
             txtTedad.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             txtTedad.BackColor = Color.LightSeaGreen;
-            txtTedad.Location = new Point(615, 63);
+            txtTedad.Font = new Font("B Nazanin", 12F, FontStyle.Bold);
+            txtTedad.Location = new Point(615, 55);
             txtTedad.Name = "txtTedad";
-            txtTedad.Size = new Size(105, 23);
+            txtTedad.Size = new Size(105, 33);
             txtTedad.TabIndex = 13;
+            txtTedad.TextChanged += txtTedad_TextChanged;
             // 
-            // label7
+            // lblSharh
             // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            label7.ForeColor = SystemColors.MenuHighlight;
-            label7.Location = new Point(189, 21);
-            label7.Name = "label7";
-            label7.RightToLeft = RightToLeft.Yes;
-            label7.Size = new Size(43, 19);
-            label7.TabIndex = 10;
-            label7.Text = "شرح :";
+            lblSharh.AutoSize = true;
+            lblSharh.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblSharh.ForeColor = SystemColors.MenuHighlight;
+            lblSharh.Location = new Point(223, 24);
+            lblSharh.Name = "lblSharh";
+            lblSharh.RightToLeft = RightToLeft.Yes;
+            lblSharh.Size = new Size(43, 19);
+            lblSharh.TabIndex = 10;
+            lblSharh.Text = "شرح :";
             // 
             // label8
             // 
@@ -423,7 +431,7 @@
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             label8.ForeColor = Color.Red;
-            label8.Location = new Point(726, 65);
+            label8.Location = new Point(724, 62);
             label8.Name = "label8";
             label8.RightToLeft = RightToLeft.Yes;
             label8.Size = new Size(48, 19);
@@ -433,19 +441,22 @@
             // txtCodeKala
             // 
             txtCodeKala.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            txtCodeKala.Location = new Point(546, 22);
+            txtCodeKala.Font = new Font("B Nazanin", 12F, FontStyle.Bold);
+            txtCodeKala.Location = new Point(615, 19);
             txtCodeKala.Name = "txtCodeKala";
-            txtCodeKala.Size = new Size(86, 23);
+            txtCodeKala.Size = new Size(86, 33);
             txtCodeKala.TabIndex = 3;
             // 
             // txtPrice
             // 
             txtPrice.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             txtPrice.BackColor = SystemColors.ActiveCaption;
-            txtPrice.Location = new Point(402, 63);
+            txtPrice.Font = new Font("B Nazanin", 12F, FontStyle.Bold);
+            txtPrice.Location = new Point(408, 55);
             txtPrice.Name = "txtPrice";
-            txtPrice.Size = new Size(117, 23);
+            txtPrice.Size = new Size(117, 33);
             txtPrice.TabIndex = 15;
+            txtPrice.TextChanged += txtPrice_TextChanged;
             // 
             // lblPrice
             // 
@@ -453,7 +464,7 @@
             lblPrice.AutoSize = true;
             lblPrice.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblPrice.ForeColor = SystemColors.MenuHighlight;
-            lblPrice.Location = new Point(522, 65);
+            lblPrice.Location = new Point(528, 63);
             lblPrice.Name = "lblPrice";
             lblPrice.RightToLeft = RightToLeft.Yes;
             lblPrice.Size = new Size(80, 19);
@@ -466,7 +477,7 @@
             lblCodeKala.AutoSize = true;
             lblCodeKala.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblCodeKala.ForeColor = SystemColors.MenuHighlight;
-            lblCodeKala.Location = new Point(669, 23);
+            lblCodeKala.Location = new Point(736, 24);
             lblCodeKala.Name = "lblCodeKala";
             lblCodeKala.RightToLeft = RightToLeft.Yes;
             lblCodeKala.Size = new Size(51, 19);
@@ -477,7 +488,7 @@
             // 
             button3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             button3.Font = new Font("Segoe UI", 7F, FontStyle.Bold);
-            button3.Location = new Point(634, 22);
+            button3.Location = new Point(703, 23);
             button3.Name = "button3";
             button3.Size = new Size(29, 23);
             button3.TabIndex = 4;
@@ -492,6 +503,7 @@
             ClientSize = new Size(800, 450);
             Controls.Add(panel2);
             Name = "SodoorFactor";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "فروش کالا/صدور فاکتور";
             Load += SodoorFactor_Load;
             panel2.ResumeLayout(false);
@@ -515,8 +527,8 @@
         private TextBox txtDate;
         private Label lblDate;
         private Label lblCodeKala;
-        private TextBox textBox5;
-        private Label label7;
+        private TextBox txtSharh;
+        private Label lblSharh;
         private TextBox txtFactorNumber;
         private Label label1;
         private TextBox textBox8;
@@ -526,7 +538,7 @@
         private Button button3;
         private TextBox txtCodeKala;
         private Button btnPrint;
-        private Button button2;
+        private Button btnSave;
         private Button btnExit;
         private GroupBox groupBox1;
         private TextBox txtTotalPrice;
