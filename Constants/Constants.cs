@@ -1,4 +1,4 @@
-﻿namespace simaHesab
+﻿namespace simaHesab.Constants
 {
     public static class Constants
     {
