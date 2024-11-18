@@ -57,12 +57,13 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
             ClientSize = new Size(233, 91);
+            ControlBox = false;
             Controls.Add(loadingLabel);
             Controls.Add(progressBarLoading);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.Fixed3D;
+            MaximizeBox = false;
             Name = "LoadingForm";
             SizeGripStyle = SizeGripStyle.Show;
-            Text = "LoadingForm";
             ResumeLayout(false);
             PerformLayout();
         }
