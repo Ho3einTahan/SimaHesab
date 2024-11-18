@@ -30,10 +30,10 @@
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            startDate = new TextBox();
+            txtStartDate = new TextBox();
             label2 = new Label();
             panel1 = new Panel();
-            textBox1 = new TextBox();
+            txtFactorNumber = new TextBox();
             label6 = new Label();
             button1 = new Button();
             btnExit = new Button();
@@ -43,7 +43,7 @@
             textBox5 = new TextBox();
             textBox4 = new TextBox();
             totalPriceTextBox = new TextBox();
-            endDate = new TextBox();
+            txtEndDate = new TextBox();
             label1 = new Label();
             panel2 = new Panel();
             dataGridView1 = new DataGridView();
@@ -52,14 +52,14 @@
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
-            // startDate
+            // txtStartDate
             // 
-            startDate.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            startDate.BackColor = SystemColors.GradientActiveCaption;
-            startDate.Location = new Point(626, 12);
-            startDate.Name = "startDate";
-            startDate.Size = new Size(115, 23);
-            startDate.TabIndex = 6;
+            txtStartDate.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            txtStartDate.BackColor = SystemColors.GradientActiveCaption;
+            txtStartDate.Location = new Point(626, 12);
+            txtStartDate.Name = "txtStartDate";
+            txtStartDate.Size = new Size(115, 23);
+            txtStartDate.TabIndex = 6;
             // 
             // label2
             // 
@@ -74,7 +74,7 @@
             // 
             // panel1
             // 
-            panel1.Controls.Add(textBox1);
+            panel1.Controls.Add(txtFactorNumber);
             panel1.Controls.Add(label6);
             panel1.Controls.Add(button1);
             panel1.Controls.Add(btnExit);
@@ -84,9 +84,9 @@
             panel1.Controls.Add(textBox5);
             panel1.Controls.Add(textBox4);
             panel1.Controls.Add(totalPriceTextBox);
-            panel1.Controls.Add(endDate);
+            panel1.Controls.Add(txtEndDate);
             panel1.Controls.Add(label1);
-            panel1.Controls.Add(startDate);
+            panel1.Controls.Add(txtStartDate);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(panel2);
             panel1.Dock = DockStyle.Fill;
@@ -96,14 +96,14 @@
             panel1.Size = new Size(800, 450);
             panel1.TabIndex = 8;
             // 
-            // textBox1
+            // txtFactorNumber
             // 
-            textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            textBox1.BackColor = SystemColors.GradientActiveCaption;
-            textBox1.Location = new Point(228, 12);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(115, 23);
-            textBox1.TabIndex = 19;
+            txtFactorNumber.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            txtFactorNumber.BackColor = SystemColors.GradientActiveCaption;
+            txtFactorNumber.Location = new Point(228, 12);
+            txtFactorNumber.Name = "txtFactorNumber";
+            txtFactorNumber.Size = new Size(115, 23);
+            txtFactorNumber.TabIndex = 19;
             // 
             // label6
             // 
@@ -203,14 +203,14 @@
             totalPriceTextBox.Size = new Size(159, 23);
             totalPriceTextBox.TabIndex = 11;
             // 
-            // endDate
+            // txtEndDate
             // 
-            endDate.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            endDate.BackColor = SystemColors.GradientActiveCaption;
-            endDate.Location = new Point(441, 12);
-            endDate.Name = "endDate";
-            endDate.Size = new Size(115, 23);
-            endDate.TabIndex = 8;
+            txtEndDate.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            txtEndDate.BackColor = SystemColors.GradientActiveCaption;
+            txtEndDate.Location = new Point(441, 12);
+            txtEndDate.Name = "txtEndDate";
+            txtEndDate.Size = new Size(115, 23);
+            txtEndDate.TabIndex = 8;
             // 
             // label1
             // 
@@ -268,7 +268,7 @@
             Controls.Add(panel1);
             Name = "FactorManagement";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "FactorManagement";
+            Text = "فاکتورها";
             Load += FactorManagement_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
@@ -279,10 +279,10 @@
 
         #endregion
 
-        private TextBox startDate;
+        private TextBox txtStartDate;
         private Label label2;
         private Panel panel1;
-        private TextBox endDate;
+        private TextBox txtEndDate;
         private Label label1;
         private Panel panel2;
         private Label label5;
@@ -294,7 +294,7 @@
         private Button btnExit;
         private DataGridView dataGridView1;
         private Button button1;
-        private TextBox textBox1;
+        private TextBox txtFactorNumber;
         private Label label6;
     }
 }
