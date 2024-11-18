@@ -30,12 +30,13 @@ namespace simaHesab
 
             try
             {
-                var dataTable = await databaseHelper.GetAllFactor();
-                var totalPrice = dataTable.Rows[0]["totalPrice"];
-                totalPriceTextBox.Text = totalPrice.ToString();
-                dataGridView1.DataSource = dataTable;
-                CustomizeDataGridView();
-
+                var dataTable = await databaseHelper.GetAllFactorAsync();
+                if (dataTable.Rows.Count>0) {
+                    var totalPrice = dataTable.Rows[0]["totalPrice"];
+                    totalPriceTextBox.Text = totalPrice.ToString();
+                    dataGridView1.DataSource = dataTable;
+                    CustomizeDataGridView();
+                }
             }
             catch (Exception ex)
             {
@@ -50,20 +51,22 @@ namespace simaHesab
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            if (startDate.Text != "" && endDate.Text != "")
+            int factorNumber=0;
+
+            if ((txtStartDate.Text != "" && txtEndDate.Text != "")|| int.TryParse(txtFactorNumber.Text,out  factorNumber))
             {
                 LoadingForm loadingForm = new LoadingForm();
                 loadingForm.Show();
 
                 try
                 {
-
-
-                    var dataTable = await databaseHelper.GetFactorByDate(startDate.Text, endDate.Text);
-                    var totalPrice = dataTable.Rows[0]["totalPrice"];
-                    totalPriceTextBox.Text = totalPrice.ToString();
-                    dataGridView1.DataSource = dataTable;
-                    CustomizeDataGridView();
+                    var dataTable = await databaseHelper.GetFactorByDate(txtStartDate.Text, txtEndDate.Text, factorNumber);
+                    if (dataTable.Rows.Count>0) {
+                        var totalPrice = dataTable.Rows[0]["totalPrice"];
+                        totalPriceTextBox.Text = totalPrice.ToString();
+                        dataGridView1.DataSource = dataTable;
+                        CustomizeDataGridView();
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -83,41 +86,26 @@ namespace simaHesab
 
         private void CustomizeDataGridView()
         {
-            if (dataGridView1.Columns.Contains("id"))
+            if (dataGridView1.Columns.Contains("codeFactor"))
             {
-                dataGridView1.Columns["id"].Width = 35;
-                dataGridView1.Columns["id"].DefaultCellStyle.BackColor = Color.LightSkyBlue;
-                dataGridView1.Columns["id"].HeaderText = "ردیف";
+                dataGridView1.Columns["codeFactor"].HeaderText = "شماره فاکتور";
             }
 
-            if (dataGridView1.Columns.Contains("factorNumber"))
+            if (dataGridView1.Columns.Contains("date"))
             {
-                dataGridView1.Columns["factorNumber"].Width = 65;
-                dataGridView1.Columns["factorNumber"].HeaderText = "شماره فاکتور";
+                dataGridView1.Columns["date"].Width = 65;
+                dataGridView1.Columns["date"].HeaderText = "تاریخ";
             }
 
-            if (dataGridView1.Columns.Contains("factorPrice"))
-                dataGridView1.Columns["factorPrice"].HeaderText = "مبلغ فاکتور";
+            if (dataGridView1.Columns.Contains("sharh"))
+                dataGridView1.Columns["sharh"].HeaderText = "شرح";
 
             if (dataGridView1.Columns.Contains("totalPrice"))
                 dataGridView1.Columns["totalPrice"].Visible = false;
 
 
-            if (dataGridView1.Columns.Contains("receivePrice"))
-                dataGridView1.Columns["receivePrice"].HeaderText = "مبلغ دریافتی";
-
-            if (dataGridView1.Columns.Contains("type"))
-                dataGridView1.Columns["type"].HeaderText = "نوع فاکتور";
-
-            if (dataGridView1.Columns.Contains("status"))
-                dataGridView1.Columns["status"].HeaderText = "وضعیت";
-
-            if (dataGridView1.Columns.Contains("description"))
-                dataGridView1.Columns["description"].HeaderText = "توضیحات";
-
-            if (dataGridView1.Columns.Contains("saveDate"))
-                dataGridView1.Columns["saveDate"].HeaderText = "زمان فاکتور";
-
+            if (dataGridView1.Columns.Contains("factorPrice"))
+                dataGridView1.Columns["factorPrice"].HeaderText = "جمع کل فاکتور";
         }
 
         private void btnExit_Click(object sender, EventArgs e)
