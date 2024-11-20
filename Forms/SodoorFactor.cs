@@ -11,7 +11,7 @@ namespace simaHesab
         public SodoorFactor()
         {
             InitializeComponent();
-            databaseHelper=new DatabaseHelper();
+            databaseHelper = new DatabaseHelper();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -34,7 +34,7 @@ namespace simaHesab
             if (txtCodeKala.Text != "")
             {
                 var rows = dataGridFactor.Rows;
-                double takhfif = double.Parse(txtPrice.Text.Replace(".","")) * double.Parse(txtTakhfif.Text.Replace(".", "")) / 100;
+                double takhfif = double.Parse(txtPrice.Text.Replace(".", "")) * double.Parse(txtTakhfif.Text.Replace(".", "")) / 100;
                 double totalPrice = (double.Parse(txtPrice.Text.Replace(".", "")) - takhfif) * int.Parse(txtTedad.Text.Replace(".", ""));
 
                 bool exists = false;
@@ -51,7 +51,7 @@ namespace simaHesab
                 if (!exists)
                 {
                     dataGridFactor.Rows.Add(
-                        rows.Count + 1,
+                        rows.Count,
                         txtCodeKala.Text,
                         txtKalaName.Text,
                         txtTedad.Text,
@@ -78,7 +78,7 @@ namespace simaHesab
         }
 
         private async void SodoorFactor_Load(object sender, EventArgs e)
-        {   
+        {
             PersianCalendar persianCalendar = new PersianCalendar();
             DateTime now = DateTime.Now;
 
@@ -87,7 +87,7 @@ namespace simaHesab
             string day = persianCalendar.GetDayOfMonth(now).ToString().PadLeft(2, '0');
             txtDate.Text = year + "/" + month + "/" + day;
 
-          txtFactorNumber.Text=(await databaseHelper.GetMaxCodeFactorAsync()).ToString();
+            txtFactorNumber.Text = (await databaseHelper.GetMaxCodeFactorAsync()).ToString();
 
         }
 
@@ -103,15 +103,15 @@ namespace simaHesab
 
         private async void btnSave_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtFactorNumber.Text) || !int.TryParse(txtFactorNumber.Text, out int factorNumber))
-            {
-                MessageBox.Show("شماره فاکتور معتبر نیست.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            if (dataGridFactor.Rows[0].Cells[1].Value ==null || dataGridFactor.Rows[0].Cells[1].Value == "") {
+                MessageBox.Show("فاکتور نمی‌تواند خالی باشد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(txtDate.Text))
             {
-                MessageBox.Show("تاریخ یا شرح نمی‌تواند خالی باشد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("تاریخ نمی‌تواند خالی باشد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -139,7 +139,7 @@ namespace simaHesab
                     }
                 }
 
-                totalPrice = Math.Round(totalPrice,2);
+                totalPrice = Math.Round(totalPrice, 2);
 
                 await databaseHelper.AddNewFactorAsync(date, totalPrice, sharh);
 
@@ -162,19 +162,19 @@ namespace simaHesab
                         continue;
                     }
 
-                    await databaseHelper.AddRizFactorAsync(factorNumber, codeKala, tedad, takhfif);
+                    await databaseHelper.AddRizFactorAsync(int.Parse(txtFactorNumber.Text), codeKala, tedad, takhfif);
+
+                    savingForm.Close();
+                    MessageBox.Show("فاکتور با موفقیت ثبت شد", "موفقیت", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Enabled = true;
+                    this.Close();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"خطا در ذخیره‌سازی فاکتور: {ex.Message}", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
                 savingForm.Close();
                 this.Enabled = true;
-                MessageBox.Show("فاکتور با موفقیت ثبت شد", "موفقیت", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
+                MessageBox.Show($"خطا در ذخیره‌سازی فاکتور: {ex.Message}", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -199,6 +199,27 @@ namespace simaHesab
                 txtPrice.Text = string.Format("{0:N0}", number).Replace(",", ".");
 
                 txtPrice.SelectionStart = txtPrice.Text.Length;
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            txtCodeKala.Clear();
+            txtKalaName.Clear();
+            txtTedad.Clear();
+            txtPrice.Clear();
+            txtTakhfif.Clear();
+        }
+
+        private void dataGridFactor_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode==Keys.Delete && !dataGridFactor.CurrentRow.IsNewRow) {
+               DialogResult result= MessageBox.Show("آیا قصد حذف این کالا را دارید ؟","حذف",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+                if (result==DialogResult.Yes ){
+                    var rows = dataGridFactor.Rows;
+                    int index = dataGridFactor.CurrentRow.Index;
+                    rows.RemoveAt(index);
+                }
             }
         }
     }
