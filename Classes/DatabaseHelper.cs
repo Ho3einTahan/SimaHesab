@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using Microsoft.Data.SqlClient;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace simaHesab.Classes
 {
@@ -9,6 +10,25 @@ namespace simaHesab.Classes
         private readonly string connectionString;
 
         public DatabaseHelper() => connectionString = Constants.Constants.ConnectionString;
+
+
+        public async Task AddKalaAsync(string kalaName,int tedad,decimal price,decimal takhfif) {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                await connection.OpenAsync();
+
+                string query = "INSERT INTO Kala (Name, price, takhfif,Tedad) VALUES (@Name, @price, @takhfif,@Tedad)";
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Name", kalaName);
+                    command.Parameters.AddWithValue("@price", SqlDbType.Decimal).Value=price;
+                    command.Parameters.AddWithValue("@takhfif", SqlDbType.Decimal).Value = takhfif;
+                    command.Parameters.AddWithValue("@Tedad", tedad);
+
+                    await command.ExecuteNonQueryAsync();
+                }
+            }
+        }
 
         // UPDATE kala price
         public async Task UpdateKalaPriceAsync(string kalaName, decimal newPrice)
@@ -135,7 +155,7 @@ namespace simaHesab.Classes
 
         public async Task<DataTable> GetFactorByDate(string startDate, string endDate,int factorNumber)
         {
-            var dataTable = new DataTable();
+            SqlCommand command;
 
             try
             {
@@ -144,15 +164,16 @@ namespace simaHesab.Classes
 
                 string query = "";
 
-                using var command = new SqlCommand(query, connection);
-
                 if (factorNumber > 0)
                 {
+
                     query = @"
                        SELECT *, 
                               (SELECT SUM(factorPrice) FROM factor WHERE codeFactor = @codeFactor) AS totalPrice
                               FROM factor
                               WHERE codeFactor = @codeFactor";
+
+                    command = new SqlCommand(query, connection);
 
                     command.Parameters.AddWithValue("@codeFactor", factorNumber);
                 }
@@ -163,19 +184,30 @@ namespace simaHesab.Classes
                               FROM factor
                               WHERE saveDate >= @startDate AND saveDate <= @endDate";
 
+                    command = new SqlCommand(query, connection);
+
                     command.Parameters.AddWithValue("@startDate", startDate);
                     command.Parameters.AddWithValue("@endDate", endDate);
                 }
 
-                using var adapter = new SqlDataAdapter(command);
-                adapter.Fill(dataTable);
+                using var reader = await command.ExecuteReaderAsync();
+
+                DataTable dataTable = await Task.Run(() =>
+                {
+                    var dt = new DataTable();
+                    dt.Load(reader);
+                    return dt;
+                });
+
+                return dataTable;
+
             }
             catch (Exception ex)
-            {
+            {   
                 Console.WriteLine($"Error: {ex.Message}");
+                return null;
             }
 
-            return dataTable;
         }
 
 
