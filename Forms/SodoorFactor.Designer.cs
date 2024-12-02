@@ -171,6 +171,7 @@
             btnPrint.Size = new Size(110, 40);
             btnPrint.TabIndex = 27;
             btnPrint.UseVisualStyleBackColor = false;
+            btnPrint.Click += btnPrint_Click;
             // 
             // btnSave
             // 

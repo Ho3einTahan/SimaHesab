@@ -1,5 +1,8 @@
 ﻿using simaHesab.Classes;
+using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.Globalization;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace simaHesab
 {
@@ -7,11 +10,14 @@ namespace simaHesab
     {
 
         private DatabaseHelper databaseHelper;
+        private PrintDocument printDocument;
 
         public SodoorFactor()
         {
             InitializeComponent();
             databaseHelper = new DatabaseHelper();
+            printDocument = new PrintDocument();
+            printDocument.PrintPage += new PrintPageEventHandler(PrintPage);
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -104,7 +110,8 @@ namespace simaHesab
         private async void btnSave_Click(object sender, EventArgs e)
         {
 
-            if (dataGridFactor.Rows[0].Cells[1].Value ==null || dataGridFactor.Rows[0].Cells[1].Value == "") {
+            if (dataGridFactor.Rows[0].Cells[1].Value == null || dataGridFactor.Rows[0].Cells[1].Value == "")
+            {
                 MessageBox.Show("فاکتور نمی‌تواند خالی باشد.", "خطا", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -213,14 +220,100 @@ namespace simaHesab
 
         private void dataGridFactor_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode==Keys.Delete && !dataGridFactor.CurrentRow.IsNewRow) {
-               DialogResult result= MessageBox.Show("آیا قصد حذف این کالا را دارید ؟","حذف",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
-                if (result==DialogResult.Yes ){
+            if (e.KeyCode == Keys.Delete && !dataGridFactor.CurrentRow.IsNewRow)
+            {
+                DialogResult result = MessageBox.Show("آیا قصد حذف این کالا را دارید ؟", "حذف", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
                     var rows = dataGridFactor.Rows;
                     int index = dataGridFactor.CurrentRow.Index;
                     rows.RemoveAt(index);
                 }
             }
         }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            // باز کردن دیالوگ چاپ
+            PrintDialog printDialog = new PrintDialog();
+            printDialog.Document = printDocument;
+
+            // بررسی اینکه کاربر دیالوگ چاپ را تایید کرده باشد
+            if (printDialog.ShowDialog() == DialogResult.OK)
+            {
+                // انجام چاپ
+                printDocument.Print();
+            }
+        }
+        private void PrintPage(object sender, PrintPageEventArgs e)
+        {
+            // تعریف فونت‌ها و رنگ‌ها
+            Font titleFont = new Font("B Nazanin", 16, FontStyle.Bold);
+            Font regularFont = new Font("B Nazanin", 12);
+            Font headerFont = new Font("B Nazanin", 12, FontStyle.Bold);
+            Brush brush = Brushes.Black;
+
+            float x = 50;
+            float y = 50;
+
+            // چاپ نام فروشگاه
+            e.Graphics.DrawString("فروشگاه نمونه", titleFont, brush, x, y);
+            y += 30;
+
+            // چاپ تاریخ و شرح فاکتور
+            e.Graphics.DrawString($"تاریخ:", regularFont, brush, x, y);
+            y += 20;
+            e.Graphics.DrawString($"شرح: ", regularFont, brush, x, y);
+            y += 30;
+
+            // چاپ جدول اقلام فاکتور
+            e.Graphics.DrawString("نام کالا", headerFont, brush, x, y);
+            e.Graphics.DrawString("تعداد", headerFont, brush, x + 200, y);
+            e.Graphics.DrawString("قیمت واحد", headerFont, brush, x + 300, y);
+            e.Graphics.DrawString("تخفیف", headerFont, brush, x + 400, y);
+            e.Graphics.DrawString("قیمت کل", headerFont, brush, x + 500, y);
+            y += 30;
+
+            List<FactorItem> items = [] ;
+
+            foreach (DataGridViewRow row in dataGridFactor.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                // خواندن مقادیر هر ردیف
+                var name = row.Cells[0].Value.ToString();
+                var quantity = Convert.ToString(row.Cells[1].Value);
+                var price = Convert.ToString(row.Cells[2].Value);
+                var discount = Convert.ToString(row.Cells[3].Value);
+
+                // افزودن به لیست اقلام
+                items.Add(new FactorItem { Name = name, Quantity = 2, UnitPrice = 3, Discount = 12, Total = 32 });
+            }
+
+            foreach (var item in items)
+            {
+                // چاپ مقادیر هر ردیف
+                e.Graphics.DrawString(item.Name, regularFont, brush, x, y);
+                e.Graphics.DrawString(item.Quantity.ToString(), regularFont, brush, x + 200, y);
+                e.Graphics.DrawString(item.UnitPrice.ToString("C"), regularFont, brush, x + 300, y);
+                e.Graphics.DrawString(item.Discount.ToString("C"), regularFont, brush, x + 400, y);
+                e.Graphics.DrawString(item.Total.ToString("C"), regularFont, brush, x + 500, y);
+                y += 20;
+            }
+
+            // چاپ مجموع قیمت
+            y += 20;
+            e.Graphics.DrawString($"مجموع: {totalPrice.ToString()}", headerFont, brush, x, y);
+        }
+
+        public class FactorItem
+        {
+            public string Name { get; set; }
+            public int Quantity { get; set; }
+            public decimal UnitPrice { get; set; }
+            public decimal Discount { get; set; }
+            public decimal Total { get; set; }
+        }
+
     }
 }
