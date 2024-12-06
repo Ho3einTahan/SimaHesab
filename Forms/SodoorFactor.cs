@@ -1,8 +1,12 @@
 ﻿using simaHesab.Classes;
-using System.Collections.Generic;
 using System.Drawing.Printing;
+using System.Data;
+using System.Drawing;
 using System.Globalization;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using FastReport;
+using MigraDocCore.DocumentObjectModel.Tables;
+using MigraDocCore.Rendering;
+using MigraDocCore.DocumentObjectModel;
 
 namespace simaHesab
 {
@@ -17,7 +21,7 @@ namespace simaHesab
             InitializeComponent();
             databaseHelper = new DatabaseHelper();
             printDocument = new PrintDocument();
-            printDocument.PrintPage += new PrintPageEventHandler(PrintPage);
+            //printDocument.PrintPage += new PrintPageEventHandler(PrintPage);
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -85,13 +89,8 @@ namespace simaHesab
 
         private async void SodoorFactor_Load(object sender, EventArgs e)
         {
-            PersianCalendar persianCalendar = new PersianCalendar();
-            DateTime now = DateTime.Now;
-
-            int year = persianCalendar.GetYear(now);
-            string month = persianCalendar.GetMonth(now).ToString().PadLeft(2, '0');
-            string day = persianCalendar.GetDayOfMonth(now).ToString().PadLeft(2, '0');
-            txtDate.Text = year + "/" + month + "/" + day;
+          
+            txtDate.Text = GetPersianlDate();
 
             txtFactorNumber.Text = (await databaseHelper.GetMaxCodeFactorAsync()).ToString();
 
@@ -234,86 +233,197 @@ namespace simaHesab
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            // باز کردن دیالوگ چاپ
-            PrintDialog printDialog = new PrintDialog();
-            printDialog.Document = printDocument;
+            //PrintDialog printDialog = new PrintDialog();
+            //printDialog.Document = printDocument;
 
-            // بررسی اینکه کاربر دیالوگ چاپ را تایید کرده باشد
-            if (printDialog.ShowDialog() == DialogResult.OK)
-            {
-                // انجام چاپ
-                printDocument.Print();
-            }
+            //if (printDialog.ShowDialog() == DialogResult.OK)
+            //{
+            //    printDocument.Print();
+            //}
+            PrintPage();
         }
-        private void PrintPage(object sender, PrintPageEventArgs e)
+       public void PrintPage()
         {
-            // تعریف فونت‌ها و رنگ‌ها
-            Font titleFont = new Font("B Nazanin", 16, FontStyle.Bold);
-            Font regularFont = new Font("B Nazanin", 12);
-            Font headerFont = new Font("B Nazanin", 12, FontStyle.Bold);
-            Brush brush = Brushes.Black;
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Name");
+            dt.Columns.Add("Quantity");
+            dt.Columns.Add("UnitPrice");
+            dt.Columns.Add("Discount");
+            dt.Columns.Add("Total");
 
-            float x = 50;
-            float y = 50;
-
-            // چاپ نام فروشگاه
-            e.Graphics.DrawString("فروشگاه نمونه", titleFont, brush, x, y);
-            y += 30;
-
-            // چاپ تاریخ و شرح فاکتور
-            e.Graphics.DrawString($"تاریخ:", regularFont, brush, x, y);
-            y += 20;
-            e.Graphics.DrawString($"شرح: ", regularFont, brush, x, y);
-            y += 30;
-
-            // چاپ جدول اقلام فاکتور
-            e.Graphics.DrawString("نام کالا", headerFont, brush, x, y);
-            e.Graphics.DrawString("تعداد", headerFont, brush, x + 200, y);
-            e.Graphics.DrawString("قیمت واحد", headerFont, brush, x + 300, y);
-            e.Graphics.DrawString("تخفیف", headerFont, brush, x + 400, y);
-            e.Graphics.DrawString("قیمت کل", headerFont, brush, x + 500, y);
-            y += 30;
-
-            List<FactorItem> items = [] ;
-
-            foreach (DataGridViewRow row in dataGridFactor.Rows)
-            {
-                if (row.IsNewRow) continue;
-
-                // خواندن مقادیر هر ردیف
-                var name = row.Cells[0].Value.ToString();
-                var quantity = Convert.ToString(row.Cells[1].Value);
-                var price = Convert.ToString(row.Cells[2].Value);
-                var discount = Convert.ToString(row.Cells[3].Value);
-
-                // افزودن به لیست اقلام
-                items.Add(new FactorItem { Name = name, Quantity = 2, UnitPrice = 3, Discount = 12, Total = 32 });
-            }
+            List<FactorItem> items = new List<FactorItem>
+        {
+            new FactorItem { Name = "کالا 21", Quantity = 2, UnitPrice = 100, Discount = 10, Total = 180 },
+            new FactorItem { Name = "کالا 2", Quantity = 3, UnitPrice = 150, Discount = 20, Total = 420 },
+            new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 },
+            new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 },
+             new FactorItem { Name = "کالا 21", Quantity = 2, UnitPrice = 100, Discount = 10, Total = 180 },
+            new FactorItem { Name = "کالا 2", Quantity = 3, UnitPrice = 150, Discount = 20, Total = 420 },
+            new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 },
+            new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }, new FactorItem { Name = "کالا 21", Quantity = 2, UnitPrice = 100, Discount = 10, Total = 180 },
+            new FactorItem { Name = "کالا 2", Quantity = 3, UnitPrice = 150, Discount = 20, Total = 420 },
+            new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 },
+            new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }, new FactorItem { Name = "کالا 21", Quantity = 2, UnitPrice = 100, Discount = 10, Total = 180 },
+            new FactorItem { Name = "کالا 2", Quantity = 3, UnitPrice = 150, Discount = 20, Total = 420 },
+            new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 },
+            new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }, new FactorItem { Name = "کالا 21", Quantity = 2, UnitPrice = 100, Discount = 10, Total = 180 },
+            new FactorItem { Name = "کالا 2", Quantity = 3, UnitPrice = 150, Discount = 20, Total = 420 },
+            new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 },
+            new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }, new FactorItem { Name = "کالا 21", Quantity = 2, UnitPrice = 100, Discount = 10, Total = 180 },
+            new FactorItem { Name = "کالا 2", Quantity = 3, UnitPrice = 150, Discount = 20, Total = 420 },
+            new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 },
+            new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }, new FactorItem { Name = "کالا 21", Quantity = 2, UnitPrice = 100, Discount = 10, Total = 180 },
+            new FactorItem { Name = "کالا 2", Quantity = 3, UnitPrice = 150, Discount = 20, Total = 420 },
+            new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 },
+            new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }, new FactorItem { Name = "کالا 21", Quantity = 2, UnitPrice = 100, Discount = 10, Total = 180 },
+            new FactorItem { Name = "کالا 2", Quantity = 3, UnitPrice = 150, Discount = 20, Total = 420 },
+            new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 },
+            new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }, new FactorItem { Name = "کالا 21", Quantity = 2, UnitPrice = 100, Discount = 10, Total = 180 },
+            new FactorItem { Name = "کالا 2", Quantity = 3, UnitPrice = 150, Discount = 20, Total = 420 },
+            new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 },
+            new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }, new FactorItem { Name = "کالا 21", Quantity = 2, UnitPrice = 100, Discount = 10, Total = 180 },
+            new FactorItem { Name = "کالا 2", Quantity = 3, UnitPrice = 150, Discount = 20, Total = 420 },
+            new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 },
+            new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }, new FactorItem { Name = "کالا 21", Quantity = 2, UnitPrice = 100, Discount = 10, Total = 180 },
+            new FactorItem { Name = "کالا 2", Quantity = 3, UnitPrice = 150, Discount = 20, Total = 420 },
+            new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 },
+            new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }, new FactorItem { Name = "کالا 21", Quantity = 2, UnitPrice = 100, Discount = 10, Total = 180 },
+            new FactorItem { Name = "کالا 2", Quantity = 3, UnitPrice = 150, Discount = 20, Total = 420 },
+            new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 },
+            new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }, new FactorItem { Name = "کالا 21", Quantity = 2, UnitPrice = 100, Discount = 10, Total = 180 },
+            new FactorItem { Name = "کالا 2", Quantity = 3, UnitPrice = 150, Discount = 20, Total = 420 },
+            new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 },
+            new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }, new FactorItem { Name = "کالا 21", Quantity = 2, UnitPrice = 100, Discount = 10, Total = 180 },
+            new FactorItem { Name = "کالا 2", Quantity = 3, UnitPrice = 150, Discount = 20, Total = 420 },
+            new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 },
+            new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+,           new FactorItem { Name = "کالا 3", Quantity = 1, UnitPrice = 200, Discount = 0, Total = 200 }
+        };
 
             foreach (var item in items)
             {
-                // چاپ مقادیر هر ردیف
-                e.Graphics.DrawString(item.Name, regularFont, brush, x, y);
-                e.Graphics.DrawString(item.Quantity.ToString(), regularFont, brush, x + 200, y);
-                e.Graphics.DrawString(item.UnitPrice.ToString("C"), regularFont, brush, x + 300, y);
-                e.Graphics.DrawString(item.Discount.ToString("C"), regularFont, brush, x + 400, y);
-                e.Graphics.DrawString(item.Total.ToString("C"), regularFont, brush, x + 500, y);
-                y += 20;
+                dt.Rows.Add(item.Name, item.Quantity, item.UnitPrice, item.Discount, item.Total);
             }
+            
 
-            // چاپ مجموع قیمت
-            y += 20;
-            e.Graphics.DrawString($"مجموع: {totalPrice.ToString()}", headerFont, brush, x, y);
+            Report report = new Report();
+
+            report.Load("InvoiceReport.frx");
+
+            String reportDate = GetPersianlDate();
+            String reportTime = GetPersianTime();
+            report.SetParameterValue("ReportDate", reportDate);
+            report.SetParameterValue("ReportTime", reportTime);
+            report.SetParameterValue("factorNumber",txtFactorNumber.Text);
+            report.RegisterData(dt, "Kala");
+            report.GetDataSource("Kala").Enabled = true;
+
+            report.Prepare();
+            report.Print();
         }
 
-        public class FactorItem
+        public string GetPersianlDate()
         {
-            public string Name { get; set; }
-            public int Quantity { get; set; }
-            public decimal UnitPrice { get; set; }
-            public decimal Discount { get; set; }
-            public decimal Total { get; set; }
+            PersianCalendar persianCalendar = new PersianCalendar();
+
+            DateTime now = DateTime.Now;
+
+            int year = persianCalendar.GetYear(now);
+            string month = persianCalendar.GetMonth(now).ToString("00");
+            string day = persianCalendar.GetDayOfMonth(now).ToString("00");
+
+         return $"{year}/{month}/{day}";
         }
 
+        public static string GetPersianTime()
+        {
+            PersianCalendar persianCalendar = new PersianCalendar();
+            DateTime now = DateTime.Now;
+
+            String hour = persianCalendar.GetHour(now).ToString("00");
+            String minute = persianCalendar.GetMinute(now).ToString("00");
+
+            return hour+ ":"+minute;
+        }
+
+    }
+
+
+    public class FactorItem
+    {
+        public string Name { get; set; }
+        public decimal Quantity { get; set; }
+        public decimal UnitPrice { get; set; }
+        public decimal Discount { get; set; }
+        public decimal Total { get; set; }
     }
 }
